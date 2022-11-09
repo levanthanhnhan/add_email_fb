@@ -10,9 +10,6 @@ GRAPH_API_ENDPOINT = 'https://graph.microsoft.com/v1.0'
 # request URL: login device
 LOGIN_DEVICE = 'https://microsoft.com/devicelogin'
 
-# request URL: get all messages (email)
-GET_EMAIL = '/me/messages'
-
 # request URL: get all messages (email) by filter:
 # $search from: get email by from value.
 # $select: select properties email. (not set: select all)
@@ -21,12 +18,6 @@ GET_EMAIL_BY_FILTER = '/me/messages?$search="from:security@facebookmail.com"&$se
 
 # time sleep when fill value
 TIME_SLEEP = 5
-
-# email login
-LOGIN_EMAIL = 'ragueltczga@outlook.com'
-
-# password login
-LOGIN_PASSWORD = 'oid7z21Ihx7'
 
 # DOM element by name write user_code
 DOM_NAME_USER_CODE = 'otc'
@@ -48,3 +39,6 @@ SPLIT_CODE_CHARACTER = ': '
 
 # URL change email
 URL_FACEBOOK_CHANGE_MAIL = 'https://www.facebook.com/settings?tab=account&section=email'
+
+# json stored token file name
+JSON_TOKEN_FILE_NAME = 'ms_graph_api_token.json'

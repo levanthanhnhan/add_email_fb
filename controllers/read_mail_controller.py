@@ -3,12 +3,12 @@ from common import const
 from services.auth_service import get_access_token
 from services.email_service import parse_email_from_api
 
-def read_mail():
+def read_mail(username, password):
     # defined code verify
     code_verify = ''
 
     #get access token by application (client) id and scopes permission
-    access_token = get_access_token(const.APP_ID, const.SCOPES)
+    access_token = get_access_token(const.APP_ID, const.SCOPES, username, password)
 
     # add access token to header
     headers = {
