@@ -33,7 +33,7 @@ def change_email():
     # reload page using cookies
     browser.get(const.URL_FACEBOOK_CHANGE_MAIL)
 
-    # show contact point dialog and submit send code
+    # handle with fb version
     if is_new_facebook_version(browser):
         # handle new version (read js, execute)
         execute_js_new_version(browser=browser)
@@ -63,7 +63,7 @@ def change_email():
 # function detect facebook version (true: new, false: old)
 def is_new_facebook_version(browser):
     try:
-        html_append = "var a_tag = document.createElement('a'); "
+        html_append =  "var a_tag = document.createElement('a'); "
         html_append += "document.getElementsByClassName('xh8yej3 xat3117 x1lliihq xxxdfa6 x112ta8 xwmqs3e x76ihet')[0].contentWindow.document.getElementById('mainContainer').append(a_tag);"
         browser.execute_script(html_append)
 
@@ -108,7 +108,7 @@ def execute_js_old_version(browser):
     wait = WebDriverWait(browser, 60)
 
     # add dialog
-    html_append = "var a_tag = document.createElement('a'); "
+    html_append =  "var a_tag = document.createElement('a'); "
     html_append += "a_tag.id='change_contactpoint_dialog'; "
     html_append += "a_tag.style.position='absolute'; a_tag.href = '/change_contactpoint/dialog/'; "
     html_append += "a_tag.innerText = 'Change Contactpoint Dialog'; a_tag.rel='dialog'; a_tag.role='button'; "
