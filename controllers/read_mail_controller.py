@@ -1,9 +1,8 @@
 import requests
 from time import sleep
 from common import const
-from services.auth_service import get_access_token
+from controllers.auth_controller import get_access_token
 from services.email_service import parse_email_from_api
-from models.respone_email import ResponseEmail
 
 # defined count repeat get mail
 repeat_get_mail_count = 0
@@ -16,21 +15,21 @@ def read_mail(username, password):
     repeat_get_mail_count += 1
 
     # send request get email
-    response_email_new = request_get_email(username, password)
+    code_verify_new = request_get_email(username, password)
 
     # if account never recived code from facebook
-    if response_email_new.id == "":
+    if code_verify_new == "":
         while repeat_get_mail_count < const.REPEAT_GET_MAIL_COUNT:
             # sleep 10s to recall
             # sleep(10)
             # re-get mail
             read_mail(username=username, password=password)
     
-    return response_email_new.code
+    return code_verify_new
 
 # function send request get email
 def request_get_email(username, password):
-    response_email = ResponseEmail(id="", code="")
+    code_verify = ""
 
     #get access token by application (client) id and scopes permission
     access_token = get_access_token(const.APP_ID, const.SCOPES, username, password)
@@ -56,13 +55,12 @@ def request_get_email(username, password):
             # get code
             code = get_code(email.body)
             if code.isnumeric():
-                response_email.id = email.id
-                response_email.code = code
+                code_verify = code
                 break
     else:
         print(response.reason)
 
-    return response_email
+    return code_verify
 
 # function get code from body email
 def get_code(body):
