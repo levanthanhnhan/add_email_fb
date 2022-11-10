@@ -14,7 +14,7 @@ LOGIN_DEVICE = 'https://microsoft.com/devicelogin'
 # $search from: get email by from value.
 # $select: select properties email. (not set: select all)
 # $top: select limit records. (not set: default 10 records)
-GET_EMAIL_BY_FILTER = '/me/messages?$search="from:security@facebookmail.com"&$select=id,subject,body,from&$top=1000'
+GET_EMAIL_BY_FILTER = '/me/messages?$search="from:security1234@facebookmail.com"&$select=id,subject,body,from&$top=1000'
 
 # time sleep when fill value
 TIME_SLEEP = 5
@@ -42,3 +42,6 @@ URL_FACEBOOK_CHANGE_MAIL = 'https://www.facebook.com/settings?tab=account&sectio
 
 # json stored token file name
 JSON_TOKEN_FILE_NAME = 'ms_graph_api_token.json'
+
+# repeat send get mail count
+REPEAT_GET_MAIL_COUNT = 2
