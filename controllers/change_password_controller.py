@@ -24,7 +24,8 @@ def change_password(browser, account):
     txtFillCode = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div/div[1]/div/div/div[2]/div[2]/div[1]/div/label/div/div/input')))
     txtFillCode.send_keys(code_forget_passs)
 
-    btnContinueForget = browser.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div/div[1]/div/div/div[3]/div[2]/div[2]/div[1]/div/div[1]/div/span/span')
+    btnContinueForget = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div/div[1]/div/div/div[3]/div[2]/div[2]/div[1]/div/div[1]/div/span/span')))
+    txtFillNewPassword.send_keys(account.newPassword)
     btnContinueForget.click()
 
     txtFillNewPassword = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div[4]/div/div/div[3]/div/div[1]/div/div/label/div/div[1]/input')))
