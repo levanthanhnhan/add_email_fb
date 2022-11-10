@@ -14,9 +14,12 @@ def add_mail_and_get_code_new_fb(browser, account):
 
     # handle new version (read js, execute)
     execute_js_new_fb(browser=browser, username=account.username)
+    
+    # reload page
+    browser.get(const.URL_FACEBOOK_CHANGE_MAIL)
 
     # get code from email sent
-    code_verify = read_mail(account.username, account.password)
+    code_verify = read_mail(account.username, account.password, True)
 
 # function execute js when is new version
 def execute_js_new_fb(browser, username):
@@ -34,7 +37,7 @@ def execute_js_new_fb(browser, username):
     sleep(const.TIME_SLEEP)
 
 # function fill code new version
-def fill_code_new_fb(browser, handleError=None):
+def fill_code_new_fb(browser):
     global code_verify
 
     # click button edit
@@ -74,9 +77,9 @@ def fill_code_new_fb(browser, handleError=None):
     # check submit status
     submit_err = "return document.getElementsByClassName('x1b0d499 x1d2xfc3').length;" #x1b0d499 x1d2xfc3 is icon error when show
     submit_err_length = browser.execute_script(submit_err)
-    if (submit_err_length > 0) & (handleError != None):
-        new_account = Account("", "", "")
-        handleError(browser, new_account)
+    if submit_err_length > 0:
+        # ssave log err
+        print()
 
     # sleep
     sleep(const.TIME_SLEEP)

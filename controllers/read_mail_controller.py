@@ -7,7 +7,7 @@ from services.email_service import parse_email_from_api
 # defined count repeat get mail
 repeat_get_mail_count = 0
 
-def read_mail(username, password):
+def read_mail(username, password, isVerify):
     # mark global
     global repeat_get_mail_count
     
@@ -15,20 +15,20 @@ def read_mail(username, password):
     repeat_get_mail_count += 1
 
     # send request get email
-    code_verify_new = request_get_email(username, password)
+    code_verify_new = request_get_email(username, password, isVerify)
 
     # if account never recived code from facebook
     if code_verify_new == "":
         while repeat_get_mail_count < const.REPEAT_GET_MAIL_COUNT:
             # sleep 10s to recall
-            # sleep(10)
+            sleep(10)
             # re-get mail
             read_mail(username=username, password=password)
     
     return code_verify_new
 
 # function send request get email
-def request_get_email(username, password):
+def request_get_email(username, password, isVerify):
     code_verify = ""
 
     #get access token by application (client) id and scopes permission
@@ -53,7 +53,7 @@ def request_get_email(username, password):
             print("<!------ GET EMAIL SUCCESS ------!>")
 
             # get code
-            code = get_code(email.body)
+            code = get_code(email.body, isVerify)
             if code.isnumeric():
                 code_verify = code
                 break
@@ -63,7 +63,14 @@ def request_get_email(username, password):
     return code_verify
 
 # function get code from body email
-def get_code(body):
-    contents = body.split(const.SPLIT_CODE_CHARACTER)
-    code = contents[1][0:5]
-    return code
+def get_code(body, isVerify):
+    if isVerify:
+        contents_1 = body.split('https://www.facebook.com/confirmcontact.php?c=')
+        contents_2 = contents_1[1].split('&')
+        code = contents_2[0]
+        return code
+    else:
+        contents_1 = body.split('https://www.facebook.com/recover/code/?n=')
+        contents_2 = contents_1[1].split('&')
+        code = contents_2[0]
+        return code
